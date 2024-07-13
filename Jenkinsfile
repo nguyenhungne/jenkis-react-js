@@ -1,5 +1,10 @@
-    pipeline {
+pipeline {
     agent any
+
+    tools {
+        nodejs 'NodeJS'
+        maven 'Maven3'
+    }
 
     environment {
         NODE_HOME = tool name: 'NodeJS', type: 'NodeJSInstallation'
@@ -28,6 +33,12 @@
         stage('Build') {
             steps {
                 sh 'npm run build'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean install'
             }
         }
     }
